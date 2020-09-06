@@ -7,22 +7,36 @@ var readline = require('readline')
 // process.argv[2] = file name
 //
 // process.argv[3] = search term
+console.log("-->", process.argv.length,  process.argv)
+if (process.argv.length <= 1) {
+    console.log("usage: node readit.js filename 'search string'")
+    exit
+}
 let fileName = process.argv[2]
 let searchTerm = process.argv[3]
-fs.readFile(fileName, 'utf8', (err, data) => {
+// fs.readFile(fileName, 'utf8', (err, data) => {
     
-    let js = JSON.parse(data)
-    js.forEach( item => {
-        if (item.name.toLowerCase().indexOf(searchTerm) != -1) {
-            console.log("--->",  item.name)
-        } 
-        if (item.description.toLowerCase().indexOf(searchTerm) != -1) {
-            console.log("--->",  item.name)
-        } 
+//     let js = JSON.parse(data)
+//     js.forEach( item => {
+//         if (item.name.toLowerCase().indexOf(searchTerm) != -1) {
+//             console.log("--->",  item.name)
+//         } 
+//         if (item.description.toLowerCase().indexOf(searchTerm) != -1) {
+//             console.log("--->",  item.name)
+//         } 
         
 
-    })
-    console.log(js.length)
+//     })
+//     console.log(js.length)
+// })
+
+fs.readFile(fileName, 'utf8', (err, data) => {
+    let js = JSON.parse(data)
+
+    const result = js.filter(item => item.name.toLowerCase().indexOf(searchTerm) != -1)
+    result.forEach(element => {
+        console.log(element.name)
+    });
 })
 
 //
